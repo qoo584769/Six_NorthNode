@@ -1809,6 +1809,22 @@
         "parameters": [],
         "responses": {}
       }
+    },
+    "/api/newebpay/newebpay": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/api/newebpay/createOrder": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
     }
   },
   "definitions": {}

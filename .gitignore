@@ -7,7 +7,7 @@ node_modules
 .DS_Store
 dist
 *.local
-
+.env
 # Test files
 coverage
 

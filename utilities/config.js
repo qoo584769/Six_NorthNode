@@ -5,7 +5,7 @@ module.exports = {
   DATABASE: process.env.DATABASE,
   DATABASE_PASSWORD: process.env.DATABASE_PASSWORD,
   PORT: process.env.PORT,
-  HOST: process.env.NODE_ENV === 'development' ? 'localhost:3000' : 'six-northnode.onrender.com',
+  HOST: process.env.NODE_ENV === 'development' ? 'localhost:3000' : 'crazymovie.onrender.com',
   JWT_SECRET: process.env.JWT_SECRET,
   FIRE_BASE: {
     TYPE: process.env.FIRE_BASE_TYPE,

@@ -7,6 +7,13 @@ node_modules
 .DS_Store
 dist
 *.local
-
+.env
 # Test files
 coverage
+
+# dotenv environment variable files
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local

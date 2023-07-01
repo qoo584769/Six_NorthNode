@@ -12,7 +12,6 @@ router.get(
   '/getOrder',
   serviceError.asyncError(async (req, res, next) => {
     const { orderId } = req.query
-    console.log(orderId)
     const result = await controllerOrder.getOrder(orderId)
     serviceResponse.success(res, result)
   })
@@ -22,7 +21,6 @@ router.post(
   '/createOrder',
   serviceError.asyncError(async (req, res, next) => {
     const { ItemDesc, date, position, price } = req.body
-    console.log(req.body)
     const result = await controllerOrder.createOrder(ItemDesc, date, position, price)
     serviceResponse.success(res, result)
   })

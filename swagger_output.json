@@ -1802,6 +1802,550 @@
         }
       }
     },
+    "/api/screens/": {
+      "post": {
+        "tags": [
+          "Screen"
+        ],
+        "summary": "新增場次",
+        "description": "新增場次",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "description": "新增電影場次用",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "movieId": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "theaterId": {
+                  "type": "string",
+                  "example": "string"
+                },
+                "$seatsStatus": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "seat_id": {
+                        "type": "string",
+                        "example": "A3"
+                      },
+                      "is_booked": {
+                        "type": "boolean",
+                        "example": false
+                      }
+                    }
+                  }
+                },
+                "startDate": {
+                  "type": "string",
+                  "example": "2023-06-02"
+                },
+                "createTime": {
+                  "type": "string",
+                  "example": "2023-05-05"
+                }
+              },
+              "required": [
+                "movieId",
+                "theaterId",
+                "startDate"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "新增場次成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "true"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "existingScreen": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "6459c26fb2ae212cbafe7987"
+                        },
+                        "movieId": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "example": "6457a5189fe33a33dc9c81e5"
+                            },
+                            "name": {
+                              "type": "string",
+                              "example": "星際異攻隊3"
+                            }
+                          }
+                        },
+                        "theaterId": {
+                          "type": "object",
+                          "properties": {
+                            "_id": {
+                              "type": "string",
+                              "example": "6458edd4ae4008081f29c7b3"
+                            },
+                            "type": {
+                              "type": "number",
+                              "example": 1
+                            }
+                          }
+                        },
+                        "startDate": {
+                          "type": "string",
+                          "example": "2023-06-03T00:00:00.000Z"
+                        },
+                        "seatsStatus": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "seat_id": {
+                                "type": "string",
+                                "example": "A3"
+                              },
+                              "is_booked": {
+                                "type": "boolean",
+                                "example": false
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "有重複的場次",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "有重複的場次請修正"
+                },
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "statusCode": {
+                      "type": "number",
+                      "example": 400
+                    },
+                    "isOperational": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Screen"
+        ],
+        "summary": "電影所有場次資訊",
+        "description": "電影所有場次資訊",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "回傳範例資料",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "_id": {
+                        "type": "string",
+                        "example": "6459143a5941f29f5db5c265"
+                      },
+                      "movieId": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "example": "645789e21f8ffbb4ed1388fd"
+                          },
+                          "name": {
+                            "type": "string",
+                            "example": "鈴芽之旅"
+                          }
+                        }
+                      },
+                      "theaterId": {
+                        "type": "object",
+                        "properties": {
+                          "_id": {
+                            "type": "string",
+                            "example": "6458e59aae4008081f29c7b1"
+                          },
+                          "type": {
+                            "type": "number",
+                            "example": 0
+                          }
+                        }
+                      },
+                      "startDate": {
+                        "type": "string",
+                        "example": "2023-05-20T14:00:00.000Z"
+                      },
+                      "seatsStatus": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "seat_id": {
+                              "type": "string",
+                              "example": "A1"
+                            },
+                            "is_booked": {
+                              "type": "boolean",
+                              "example": true
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/screens/{screenId}": {
+      "get": {
+        "tags": [
+          "Screen"
+        ],
+        "summary": "某部電影場次資訊",
+        "description": "某部電影場次資訊期",
+        "parameters": [
+          {
+            "name": "screenId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "電影場次id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "回傳範例資料",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "movieId": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "6457a5189fe33a33dc9c81e5"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "星際異攻隊3"
+                        }
+                      }
+                    },
+                    "theaterId": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "6458e59aae4008081f29c7b1"
+                        },
+                        "type": {
+                          "type": "number",
+                          "example": 0
+                        }
+                      }
+                    },
+                    "startDate": {
+                      "type": "string",
+                      "example": "2023-06-04T00:00:00.000Z"
+                    },
+                    "seatsStatus": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "seat_id": {
+                            "type": "string",
+                            "example": "A2"
+                          },
+                          "is_booked": {
+                            "type": "boolean",
+                            "example": true
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Screen"
+        ],
+        "summary": "刪除某部電影場次",
+        "description": "刪除某部電影場次",
+        "parameters": [
+          {
+            "name": "screenId",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "電影場次id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "刪除成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "example": "true"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "6450e3184764484909db19de"
+                    },
+                    "movieId": {
+                      "type": "string",
+                      "example": "645216095f6048901715286b"
+                    },
+                    "startDate": {
+                      "type": "string",
+                      "example": "2023-06-01T10:00:00.000Z"
+                    },
+                    "theaterId": {
+                      "type": "string",
+                      "example": "64537a165fff2ccab6e21239"
+                    },
+                    "seatsStatus": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "seat_id": {
+                            "type": "string",
+                            "example": "A3"
+                          },
+                          "is_booked": {
+                            "type": "boolean",
+                            "example": false
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/screens/{screenid}": {
+      "patch": {
+        "tags": [
+          "Screen"
+        ],
+        "summary": "修改某場電影場次資訊",
+        "description": "修改某場電影場次資訊",
+        "parameters": [
+          {
+            "name": "screenid",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "場次id"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "type": "object",
+            "required": "true",
+            "description": "修改某場電影場次資訊用",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "startDate": {
+                  "type": "string",
+                  "example": "2023-06-03"
+                },
+                "$seatsStatus": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "seat_id": {
+                        "type": "string",
+                        "example": "A2"
+                      },
+                      "is_booked": {
+                        "type": "boolean",
+                        "example": true
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "startDate"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "修改成功",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "seatsStatus": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "seat_id": {
+                            "type": "string",
+                            "example": "A2"
+                          },
+                          "is_booked": {
+                            "type": "boolean",
+                            "example": true
+                          }
+                        }
+                      }
+                    },
+                    "startDate": {
+                      "type": "string",
+                      "example": "2023-06-03T00:00:00.000Z"
+                    },
+                    "movieId": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "6457a5189fe33a33dc9c81e5"
+                        },
+                        "name": {
+                          "type": "string",
+                          "example": "星際異攻隊3"
+                        }
+                      }
+                    },
+                    "theaterId": {
+                      "type": "object",
+                      "properties": {
+                        "_id": {
+                          "type": "string",
+                          "example": "6458e59aae4008081f29c7b1"
+                        },
+                        "type": {
+                          "type": "number",
+                          "example": 0
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "xml": {
+                "name": "main"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/order/getOrder": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/api/order/createOrder": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
     "/api/mail/": {
       "post": {
         "tags": [],

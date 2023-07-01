@@ -10,8 +10,18 @@ const controllerScreens = {
 
   async getPlayDates (movieId) {
     const ObjectId = require('mongoose').Types.ObjectId
-    const screens = await Screens.find({ movieId: new ObjectId(movieId) })
+    const screens = await Screens.find({ movieId: new ObjectId(movieId) }).populate({
+      path: 'movieId'
+      // select: 'name',
+      // match: { name: { $regex: new RegExp(name, 'i') } }
+    })
+      .populate({
+        path: 'theaterId'
+        // select: 'type',
+        // match: { type: { $ne: null } }
+      })
     const playDates = []
+    const newPlayDates = []
 
     const currentDate = new Date()
 
@@ -21,11 +31,13 @@ const controllerScreens = {
         const formattedDate = startDate.toISOString().split('T')[0]
         if (!playDates.includes(formattedDate)) {
           playDates.push(formattedDate)
+          const newData = { screen, formattedDate }
+          newPlayDates.push(newData)
         }
       }
     })
 
-    return playDates
+    return newPlayDates
   },
 
   async  insertScreens (movieId, theaterId, startDate) {
@@ -151,7 +163,7 @@ const controllerScreens = {
       })
       .populate({
         path: 'theaterId',
-        select: 'type'
+        select: 'type price'
       })
     // console.log(OneScreen.movieId.name)
     if (!screenId) {

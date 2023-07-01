@@ -49,5 +49,8 @@
     "*.js": [
       "npm run lint"
     ]
+  },
+  "engines": {
+    "node": ">=14"
   }
 }

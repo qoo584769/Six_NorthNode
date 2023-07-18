@@ -27,7 +27,8 @@ router.post('/createOrder', serviceError.asyncError(async (req, res, next) => {
     TimeStamp,
     MerchantID: MERCHANTID,
     MerchantOrderNo: TimeStamp,
-    Version: VERSION
+    Version: VERSION,
+    ReturnURL: `https://crazymovieweb.onrender.com/newebpayreturn/${TimeStamp}`
   }
 
   const chainData = await controllerNewebpay.genDataChain(orders.TimeStamp)
@@ -38,6 +39,7 @@ router.post('/createOrder', serviceError.asyncError(async (req, res, next) => {
     aes,
     sha
   }
+  console.log(result)
   serviceResponse.success(res, result)
 }))
 

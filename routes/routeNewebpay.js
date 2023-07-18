@@ -8,14 +8,29 @@ const serviceError = require('@/services/serviceError')
 
 const controllerNewebpay = require('@/controllers/controllerNewebpay')
 
-const { MERCHANTID, VERSION } = process.env
+const { MERCHANTID, VERSION, HASHKEY, HASHIV } = process.env
 const orders = {}
 
+// 將 aes 解密
+function createMpgAesDecrypt (TradeInfo) {
+  const HASHKEY = 'O1ni311skcQtjzZ9dosTUklfysy6gAkK'
+  const HASHIV = 'CjIIzuIMOIocpRfP'
+  const decrypt = crypto.createDecipheriv('aes256', HASHKEY, HASHIV)
+  decrypt.setAutoPadding(false)
+  const text = decrypt.update(TradeInfo, 'hex', 'utf8')
+  const plainText = text + decrypt.final('utf8')
+  // eslint-disable-next-line no-control-regex
+  const result = plainText.replace(/[\x00-\x20]+/g, '')
+  return JSON.parse(result)
+}
+
 const newebpay = async (req, res, next) => {
+  const data = req.body
   console.log(req.body)
+  const result = createMpgAesDecrypt(data.TradeInfo)
   // serviceResponse.success(res, req.body)
-  // return res.redirect('https://crazymovieweb.onrender.com/newebpayreturn/123')
-  return res.redirect('https://crazymovieweb.onrender.com/')
+  return res.redirect(`https://crazymovieweb.onrender.com/newebpayreturn/${result.Result.MerchantOrderNo}`)
+  // return res.redirect('https://crazymovieweb.onrender.com/')
 }
 
 // router.post('/createOrder', createOrder)

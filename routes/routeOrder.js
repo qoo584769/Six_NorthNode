@@ -20,8 +20,8 @@ router.get(
 router.post(
   '/createOrder',
   serviceError.asyncError(async (req, res, next) => {
-    const { ItemDesc, date, position, price } = req.body
-    const result = await controllerOrder.createOrder(ItemDesc, date, position, price)
+    const { ItemDesc, date, position, price, time } = req.body
+    const result = await controllerOrder.createOrder(ItemDesc, date, position, price, time)
     serviceResponse.success(res, result)
   })
 )

@@ -11,7 +11,10 @@ const controllerNewebpay = require('@/controllers/controllerNewebpay')
 const { MERCHANTID, VERSION } = process.env
 const orders = {}
 
-const newebpay = async (req, res, next) => {}
+const newebpay = async (req, res, next) => {
+  console.log(req.body)
+  serviceResponse.success(res, req.body)
+}
 
 // router.post('/createOrder', createOrder)
 // 藍新金流

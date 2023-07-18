@@ -14,7 +14,8 @@ const orders = {}
 const newebpay = async (req, res, next) => {
   console.log(req.body)
   // serviceResponse.success(res, req.body)
-  return res.redirect('https://crazymovieweb.onrender.com/newebpayreturn/123')
+  // return res.redirect('https://crazymovieweb.onrender.com/newebpayreturn/123')
+  return res.redirect('https://crazymovieweb.onrender.com/')
 }
 
 // router.post('/createOrder', createOrder)

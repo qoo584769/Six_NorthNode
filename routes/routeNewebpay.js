@@ -30,7 +30,7 @@ const newebpay = async (req, res, next) => {
   console.log(req.body)
   const result = createMpgAesDecrypt(data.TradeInfo)
   // serviceResponse.success(res, req.body)
-  return res.redirect(`https://crazymovieweb.onrender.com/newebpayreturn/${result.Result.MerchantOrderNo}`)
+  return res.redirect(`https://crazymovieweb.onrender.com/#/newebpayreturn/${result.Result.MerchantOrderNo}`)
   // return res.redirect('https://crazymovieweb.onrender.com/')
 }
 

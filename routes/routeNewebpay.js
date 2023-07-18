@@ -47,9 +47,8 @@ router.post('/createOrder', serviceError.asyncError(async (req, res, next) => {
     ...data,
     TimeStamp,
     MerchantID: MERCHANTID,
-    MerchantOrderNo: TimeStamp,
-    Version: VERSION,
-    ReturnURL: `https://crazymovieweb.onrender.com/newebpayreturn/${TimeStamp}`
+    MerchantOrderNo: data.orderId,
+    Version: VERSION
   }
 
   const chainData = await controllerNewebpay.genDataChain(orders.TimeStamp)

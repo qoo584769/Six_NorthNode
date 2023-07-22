@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+const crypto = require('crypto')
 
 const router = express.Router()
 
@@ -8,14 +9,25 @@ const serviceError = require('@/services/serviceError')
 
 const controllerNewebpay = require('@/controllers/controllerNewebpay')
 
-const { MERCHANTID, VERSION } = process.env
+const { MERCHANTID, VERSION, HASHKEY, HASHIV } = process.env
 const orders = {}
 
+// 將 aes 解密
+function createMpgAesDecrypt (TradeInfo) {
+  const decrypt = crypto.createDecipheriv('aes256', HASHKEY, HASHIV)
+  decrypt.setAutoPadding(false)
+  const text = decrypt.update(TradeInfo, 'hex', 'utf8')
+  const plainText = text + decrypt.final('utf8')
+  // eslint-disable-next-line no-control-regex
+  const result = plainText.replace(/[\x00-\x20]+/g, '')
+  return JSON.parse(result)
+}
+
 const newebpay = async (req, res, next) => {
+  const data = req.body
   console.log(req.body)
-  // serviceResponse.success(res, req.body)
-  // return res.redirect('https://crazymovieweb.onrender.com/newebpayreturn/123')
-  return res.redirect('https://crazymovieweb.onrender.com/')
+  const result = createMpgAesDecrypt(data.TradeInfo)
+  return res.redirect(`https://crazymovieweb.onrender.com/#/newebpayreturn/${result.Result.MerchantOrderNo}`)
 }
 
 // router.post('/createOrder', createOrder)
@@ -31,9 +43,8 @@ router.post('/createOrder', serviceError.asyncError(async (req, res, next) => {
     ...data,
     TimeStamp,
     MerchantID: MERCHANTID,
-    MerchantOrderNo: TimeStamp,
-    Version: VERSION,
-    ReturnURL: `https://crazymovieweb.onrender.com/newebpayreturn/${TimeStamp}`
+    MerchantOrderNo: data.orderId,
+    Version: VERSION
   }
 
   const chainData = await controllerNewebpay.genDataChain(orders.TimeStamp)

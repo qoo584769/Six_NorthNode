@@ -30,6 +30,11 @@ const orderSchema = new Schema(
       type: Number,
       default: 0,
       required: true
+    },
+    time: {
+      type: String,
+      default: '',
+      require: true
     }
     // member: {
     //   type: Schema.ObjectId,

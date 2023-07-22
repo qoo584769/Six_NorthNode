@@ -16,6 +16,7 @@ router.post(
     if (!name || !level || !desc || !releaseData) {
       serviceResponse.error(httpCode.BAD_REQUEST, '欄位不可為空', next)
     }
+    console.log(req.body)
     /**
      * #swagger.tags = ['Movie']
      * #swagger.summary = '新增電影資訊'
@@ -189,9 +190,8 @@ router.patch(
         }
       */
     const { id } = req.params
-    const { name, level, desc, releaseData } = req.body
-
-    const result = await controllerMovie.updateMovie(id, name, level, desc, releaseData)
+    const { name, level, desc, releaseData, imgs } = req.body
+    const result = await controllerMovie.updateMovie(id, name, level, desc, releaseData, imgs)
 
     serviceResponse.success(res, result)
   })

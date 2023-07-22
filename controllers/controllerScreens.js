@@ -46,11 +46,10 @@ const controllerScreens = {
     if (movieExist > 0) {
       throw serviceResponse.error(httpCode.BAD_REQUEST, '有重複的場次請修正')
     }
-
     const newScreens = await Screens.create({
       movieId,
       theaterId,
-      startDate,
+      startDate: new Date(startDate),
       createTime: new Date()
     })
 

@@ -8,6 +8,7 @@ const serviceResponse = require('@/services/serviceResponse')
 const serviceError = require('@/services/serviceError')
 
 const controllerNewebpay = require('@/controllers/controllerNewebpay')
+const controllerOrder = require('@/controllers/controllerOrder')
 
 const { MERCHANTID, VERSION, HASHKEY, HASHIV } = process.env
 const orders = {}
@@ -26,8 +27,11 @@ function createMpgAesDecrypt (TradeInfo) {
 const newebpay = async (req, res, next) => {
   const data = req.body
   console.log(req.body)
+  const url = 'https://crazymovie.onrender.com'
   const result = createMpgAesDecrypt(data.TradeInfo)
-  return res.redirect(`https://crazymovieweb.onrender.com/#/newebpayreturn/${result.Result.MerchantOrderNo}`)
+  const orderRes = await controllerOrder.getOrder(result.Result.MerchantOrderNo)
+  console.log(orderRes)
+  return res.redirect(`${url}/#/newebpayreturn/${result.Result.MerchantOrderNo}`)
 }
 
 // router.post('/createOrder', createOrder)

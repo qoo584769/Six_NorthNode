@@ -35,6 +35,11 @@ const orderSchema = new Schema(
       type: String,
       default: '',
       require: true
+    },
+    screenId: {
+      type: Schema.ObjectId,
+      ref: 'screens',
+      require: ['true', '影廳ID必填']
     }
     // member: {
     //   type: Schema.ObjectId,

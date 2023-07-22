@@ -4,13 +4,14 @@ const serviceResponse = require('@/services/serviceResponse.js')
 const httpCode = require('@/utilities/httpCode')
 
 const controllerOrder = {
-  async createOrder (ItemDesc, date, position, price, time) {
+  async createOrder (ItemDesc, date, position, price, time, screenId) {
     const newOrder = await Order.create({
       ItemDesc,
       date,
       position,
       price,
-      time
+      time,
+      screenId
     })
     return newOrder
   },

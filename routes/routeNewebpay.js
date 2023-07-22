@@ -27,7 +27,7 @@ function createMpgAesDecrypt (TradeInfo) {
 const newebpay = async (req, res, next) => {
   const data = req.body
   console.log(req.body)
-  const url = 'https://crazymovie.onrender.com'
+  const url = 'https://crazymovieweb.onrender.com'
   const result = createMpgAesDecrypt(data.TradeInfo)
   const orderRes = await controllerOrder.getOrder(result.Result.MerchantOrderNo)
   console.log(orderRes)

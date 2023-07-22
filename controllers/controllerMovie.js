@@ -49,13 +49,14 @@ const controllerMovie = {
     return result
   },
 
-  async updateMovie (id, name, level, desc, releaseData) {
+  async updateMovie (id, name, level, desc, releaseData, imgs) {
     const updatedMovie = await Movie.findByIdAndUpdate(
       id, {
         name,
         level,
         desc,
-        releaseData
+        releaseData,
+        imgs
       }, { new: true, returnDocument: 'after' })
 
     return updatedMovie

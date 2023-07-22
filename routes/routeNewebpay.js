@@ -14,8 +14,6 @@ const orders = {}
 
 // 將 aes 解密
 function createMpgAesDecrypt (TradeInfo) {
-  const HASHKEY = 'O1ni311skcQtjzZ9dosTUklfysy6gAkK'
-  const HASHIV = 'CjIIzuIMOIocpRfP'
   const decrypt = crypto.createDecipheriv('aes256', HASHKEY, HASHIV)
   decrypt.setAutoPadding(false)
   const text = decrypt.update(TradeInfo, 'hex', 'utf8')
@@ -29,9 +27,7 @@ const newebpay = async (req, res, next) => {
   const data = req.body
   console.log(req.body)
   const result = createMpgAesDecrypt(data.TradeInfo)
-  // serviceResponse.success(res, req.body)
   return res.redirect(`https://crazymovieweb.onrender.com/#/newebpayreturn/${result.Result.MerchantOrderNo}`)
-  // return res.redirect('https://crazymovieweb.onrender.com/')
 }
 
 // router.post('/createOrder', createOrder)

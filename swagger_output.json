@@ -2354,6 +2354,14 @@
         "responses": {}
       }
     },
+    "/api/theater/": {
+      "get": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
     "/api/newebpay/newebpay": {
       "post": {
         "tags": [],

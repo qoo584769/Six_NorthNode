@@ -24,6 +24,7 @@ const routeMovie = require('./routes/routeMovie')
 const routeScreen = require('./routes/routeScreen')
 const routeOrder = require('./routes/routeOrder')
 const routeMail = require('./routes/routeMail')
+const routeTheater = require('./routes/routeTheater')
 const routeNewebpay = require('./routes/routeNewebpay')
 
 // Set up middleware
@@ -43,6 +44,7 @@ app.use('/api/movie', routeMovie)
 app.use('/api/screens', routeScreen)
 app.use('/api/order', routeOrder)
 app.use('/api/mail', routeMail)
+app.use('/api/theater', routeTheater)
 app.use('/api/newebpay', routeNewebpay)
 app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile)) // 設定 swagger 的路由
 

@@ -30,7 +30,7 @@ const newebpay = async (req, res, next) => {
   const url = 'https://crazymovieweb.onrender.com'
   const result = createMpgAesDecrypt(data.TradeInfo)
   const orderRes = await controllerOrder.getOrder(result.Result.MerchantOrderNo)
-  console.log(orderRes)
+  console.log('解密付款 : ' + orderRes)
   return res.redirect(`${url}/#/newebpayreturn/${result.Result.MerchantOrderNo}`)
 }
 

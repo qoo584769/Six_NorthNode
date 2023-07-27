@@ -8,6 +8,7 @@ const serviceResponse = require('@/services/serviceResponse')
 const serviceError = require('@/services/serviceError')
 
 const controllerNewebpay = require('@/controllers/controllerNewebpay')
+const controllerScreens = require('@/controllers/controllerScreens')
 const controllerOrder = require('@/controllers/controllerOrder')
 
 const { MERCHANTID, VERSION, HASHKEY, HASHIV } = process.env
@@ -30,7 +31,15 @@ const newebpay = async (req, res, next) => {
   const url = 'https://crazymovieweb.onrender.com'
   const result = createMpgAesDecrypt(data.TradeInfo)
   const orderRes = await controllerOrder.getOrder(result.Result.MerchantOrderNo)
+  const newSeatsStatu = orderRes.screenId.seatsStatus.map((item) => {
+    if (item.seat_id === orderRes.position) {
+      item.is_booked = !item.is_booked
+    }
+    return item
+  })
+  const updateSeatStatus = await controllerScreens.updateScreenSeatsStatu(orderRes.screenId._id, newSeatsStatu)
   console.log('解密付款 : ' + orderRes)
+  console.log('更新座位資訊 : ' + updateSeatStatus)
   return res.redirect(`${url}/#/newebpayreturn/${result.Result.MerchantOrderNo}`)
 }
 

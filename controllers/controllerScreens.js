@@ -215,6 +215,17 @@ const controllerScreens = {
     const result = await Screens.findByIdAndDelete(screenId)
 
     return result
+  },
+
+  async updateScreenSeatsStatu (screenid, seatsStatus) {
+    const result = await Screens.findByIdAndUpdate(
+      screenid, {
+        seatsStatus
+      }, { new: true, runValidators: true, returnDocument: 'after' })
+
+    return {
+      seatsStatus: result.seatsStatus
+    }
   }
 
 }

@@ -17,7 +17,9 @@ const controllerOrder = {
   },
   async getOrder (orderId) {
     const ObjectId = require('mongoose').Types.ObjectId
-    const orderRes = await Order.findOne({ _id: new ObjectId(orderId) })
+    const orderRes = await Order.findOne({ _id: new ObjectId(orderId) }).populate({
+      path: 'screenId'
+    })
     console.log(orderRes)
     return orderRes
   }

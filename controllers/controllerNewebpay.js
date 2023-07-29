@@ -26,6 +26,16 @@ const controllerNewebpay = {
     const plainText = `HashKey=${HASHKEY}&${aesEncrypt}&HashIV=${HASHIV}`
 
     return sha.update(plainText).digest('hex').toUpperCase()
+  },
+  // 解密藍新付款成功的回傳資料
+  async createMpgAesDecrypt (TradeInfo) {
+    const decrypt = crypto.createDecipheriv('aes256', HASHKEY, HASHIV)
+    decrypt.setAutoPadding(false)
+    const text = decrypt.update(TradeInfo, 'hex', 'utf8')
+    const plainText = text + decrypt.final('utf8')
+    // eslint-disable-next-line no-control-regex
+    const result = plainText.replace(/[\x00-\x20]+/g, '')
+    return JSON.parse(result)
   }
 }
 

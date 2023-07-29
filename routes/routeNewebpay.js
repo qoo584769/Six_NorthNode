@@ -14,22 +14,11 @@ const controllerOrder = require('@/controllers/controllerOrder')
 const { MERCHANTID, VERSION, HASHKEY, HASHIV } = process.env
 const orders = {}
 
-// 將 aes 解密
-function createMpgAesDecrypt (TradeInfo) {
-  const decrypt = crypto.createDecipheriv('aes256', HASHKEY, HASHIV)
-  decrypt.setAutoPadding(false)
-  const text = decrypt.update(TradeInfo, 'hex', 'utf8')
-  const plainText = text + decrypt.final('utf8')
-  // eslint-disable-next-line no-control-regex
-  const result = plainText.replace(/[\x00-\x20]+/g, '')
-  return JSON.parse(result)
-}
-
 const newebpay = async (req, res, next) => {
   const data = req.body
   console.log(req.body)
   const url = 'https://crazymovieweb.onrender.com'
-  const result = createMpgAesDecrypt(data.TradeInfo)
+  const result = await controllerNewebpay.createMpgAesDecrypt(data.TradeInfo)
   const orderRes = await controllerOrder.getOrder(result.Result.MerchantOrderNo)
   const newSeatsStatu = orderRes.screenId.seatsStatus.map((item) => {
     if (item.seat_id === orderRes.position) {
@@ -38,7 +27,8 @@ const newebpay = async (req, res, next) => {
     return item
   })
   const updateSeatStatus = await controllerScreens.updateScreenSeatsStatu(orderRes.screenId._id, newSeatsStatu)
-  console.log('解密付款 : ' + orderRes)
+  console.log('解密付款 : ' + result)
+  console.log('訂單資訊 : ' + orderRes)
   console.log('更新座位資訊 : ' + updateSeatStatus)
   return res.redirect(`${url}/#/newebpayreturn/${result.Result.MerchantOrderNo}`)
 }

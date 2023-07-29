@@ -77,7 +77,9 @@ const controllerMember = {
   async updateUser ({ user, nickName, phoneNumber, birthday, profilePic }) {
     const result = await modelMember.findByIdAndUpdate(user, { nickName, phoneNumber, birthday, profilePic }, { returnDocument: 'after', runValidators: true, new: true })
     return result
-  }
+  },
+  // 新增會員訂單
+  async updateUserOrder () {}
 }
 
 module.exports = controllerMember

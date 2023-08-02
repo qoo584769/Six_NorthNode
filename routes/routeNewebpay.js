@@ -21,9 +21,14 @@ const newebpay = async (req, res, next) => {
   const result = await controllerNewebpay.createMpgAesDecrypt(data.TradeInfo)
   const orderRes = await controllerOrder.getOrder(result.Result.MerchantOrderNo)
   const newSeatsStatu = orderRes.screenId.seatsStatus.map((item) => {
-    if (item.seat_id === orderRes.position) {
-      item.is_booked = !item.is_booked
+    for (let i = 0; i <= orderRes.position.length; i++) {
+      if (item.seat_id === orderRes.position[i]) {
+        item.is_booked = !item.is_booked
+      }
     }
+    // if (item.seat_id === orderRes.position) {
+    //   item.is_booked = !item.is_booked
+    // }
     return item
   })
   const updateSeatStatus = await controllerScreens.updateScreenSeatsStatu(orderRes.screenId._id, newSeatsStatu)

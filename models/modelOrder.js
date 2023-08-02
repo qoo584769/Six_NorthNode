@@ -22,8 +22,8 @@ const orderSchema = new Schema(
       required: true
     },
     position: {
-      type: String,
-      default: '',
+      type: Array,
+      default: [],
       required: true
     },
     price: {

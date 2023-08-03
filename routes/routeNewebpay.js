@@ -10,6 +10,7 @@ const serviceError = require('@/services/serviceError')
 const controllerNewebpay = require('@/controllers/controllerNewebpay')
 const controllerScreens = require('@/controllers/controllerScreens')
 const controllerOrder = require('@/controllers/controllerOrder')
+const controllerMember = require('@/controllers/controllerMember')
 
 const { MERCHANTID, VERSION, HASHKEY, HASHIV } = process.env
 const orders = {}
@@ -20,20 +21,19 @@ const newebpay = async (req, res, next) => {
   const url = 'https://crazymovieweb.onrender.com'
   const result = await controllerNewebpay.createMpgAesDecrypt(data.TradeInfo)
   const orderRes = await controllerOrder.getOrder(result.Result.MerchantOrderNo)
+  const memberRes = await controllerMember.updateUserOrder(orderRes.member, orderRes._id)
   const newSeatsStatu = orderRes.screenId.seatsStatus.map((item) => {
     for (let i = 0; i <= orderRes.position.length; i++) {
       if (item.seat_id === orderRes.position[i]) {
         item.is_booked = !item.is_booked
       }
     }
-    // if (item.seat_id === orderRes.position) {
-    //   item.is_booked = !item.is_booked
-    // }
     return item
   })
   const updateSeatStatus = await controllerScreens.updateScreenSeatsStatu(orderRes.screenId._id, newSeatsStatu)
   console.log('解密付款 : ' + result)
   console.log('訂單資訊 : ' + orderRes)
+  console.log('會員訂單更新 : ' + memberRes)
   console.log('更新座位資訊 : ' + updateSeatStatus)
   return res.redirect(`${url}/#/newebpayreturn/${result.Result.MerchantOrderNo}`)
 }

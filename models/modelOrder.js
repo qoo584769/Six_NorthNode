@@ -40,12 +40,12 @@ const orderSchema = new Schema(
       type: Schema.ObjectId,
       ref: 'screens',
       require: ['true', '影廳ID必填']
+    },
+    member: {
+      type: Schema.ObjectId,
+      ref: 'member',
+      require: ['true', '訂票人資訊必填']
     }
-    // member: {
-    //   type: Schema.ObjectId,
-    //   ref: 'member',
-    //   require: ['true', '訂票人資訊必填']
-    // },
     // movie: {
     //   type: Schema.ObjectId,
     //   ref: 'movie',

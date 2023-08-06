@@ -70,7 +70,9 @@ const controllerMember = {
   },
   // 取得會員資料
   async getUser (user) {
-    const UserData = await modelMember.findById({ _id: user })
+    const UserData = await modelMember.findById({ _id: user }).populate({
+      path: 'order'
+    })
     return UserData
   },
   // 修改會員資料

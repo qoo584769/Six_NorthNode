@@ -6,7 +6,7 @@ const serviceJWT = require('@/services/serviceJWT')
 const middlewareAuth = {
   loginAuth: serviceError.asyncError(async (req, res, next) => {
     let token = null
-
+    console.log('登入權限驗證 :' + req.headers)
     if (
       req.headers.authorization &&
       req.headers.authorization.startsWith('Bearer')

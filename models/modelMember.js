@@ -10,7 +10,7 @@ const memberSchema = new Schema(
     phoneNumber: { type: String },
     birthday: { type: Date },
     profilePic: { type: String, default: '' },
-    order: [{ type: Schema.Types.ObjectId, ref: 'Order' }]
+    orderId: [{ type: Schema.Types.ObjectId, ref: 'order' }]
   },
   { timestamps: true }
 )

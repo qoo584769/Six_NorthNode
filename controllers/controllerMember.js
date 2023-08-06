@@ -71,7 +71,7 @@ const controllerMember = {
   // 取得會員資料
   async getUser (user) {
     const UserData = await modelMember.findById({ _id: user }).populate({
-      path: 'order'
+      path: 'orderId'
     })
     return UserData
   },
@@ -82,7 +82,7 @@ const controllerMember = {
   },
   // 新增會員訂單
   async updateUserOrder (user, orderId) {
-    const result = await modelMember.findByIdAndUpdate({ _id: user }, { $push: { order: orderId } }, { returnDocument: 'after', runValidators: true, new: true })
+    const result = await modelMember.findByIdAndUpdate({ _id: user }, { $push: { orderId } }, { returnDocument: 'after', runValidators: true, new: true })
     return result
   }
 }

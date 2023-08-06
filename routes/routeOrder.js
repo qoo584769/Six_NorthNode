@@ -24,6 +24,7 @@ router.post(
   serviceError.asyncError(async (req, res, next) => {
     // 從jwt取得使用者id
     const { user } = req
+    console.log('訂單建立驗證 :' + user)
     const { ItemDesc, date, position, price, time, screenId } = req.body
     const result = await controllerOrder.createOrder(ItemDesc, date, position, price, time, screenId, user)
     serviceResponse.success(res, result)

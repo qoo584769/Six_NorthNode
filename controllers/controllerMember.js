@@ -82,7 +82,7 @@ const controllerMember = {
   },
   // 新增會員訂單
   async updateUserOrder (user, orderId) {
-    const result = await modelMember.findByIdAndUpdate(user, { $push: { order: orderId } }, { returnDocument: 'after', runValidators: true, new: true })
+    const result = await modelMember.findByIdAndUpdate({ _id: user }, { $push: { order: orderId } }, { returnDocument: 'after', runValidators: true, new: true })
     return result
   }
 }

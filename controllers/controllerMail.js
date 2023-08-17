@@ -78,7 +78,7 @@ const controllerMail = {
       service: 'gmail',
       auth: {
         type: 'OAuth2',
-        user: 'uh584697213@gmail.com',
+        user: process.env.EMAIL_ADDRESS,
         clientId: process.env.GOOGLE_AUTH_CLIENTID,
         clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
         refreshToken: process.env.GOOGLE_AUTH_REFRESH_TOKEN,

@@ -54,10 +54,6 @@ const controllerMail = {
     return result
   },
   async sendTicketMail ({ orderRes, memberRes }) {
-    console.log('orderRes mail')
-    console.log(orderRes)
-    console.log('memberRes mail')
-    console.log(memberRes)
     // 是否為 Email
     if (!validator.isEmail(memberRes.email)) {
       throw serviceResponse.error(httpCode.BAD_REQUEST, '信箱格式錯誤')
@@ -126,7 +122,7 @@ const controllerMail = {
           </p>
           <p style="line-height: 12px;">
               總價：
-                  <span style="font-weight:600">${orderRes.price}}</span>
+                  <span style="font-weight:600">${orderRes.price}</span>
           </p>
           <a href="#" style="text-decoration: none;">
               <div style="width: 40%; line-height: 50px; text-align: center; background-color: #0088d2; border-radius: 10px; margin-bottom: 5px;">
@@ -169,8 +165,7 @@ const controllerMail = {
 
     const mailOptions = {
       from: '瘋影票 <crazymovie@gmail.com>',
-      // to: `${memberRes.email}`,
-      to: 'uh584697213@gmail.com',
+      to: `${memberRes.email}`,
       subject: '訂票成功',
       html
     }

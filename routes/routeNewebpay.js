@@ -11,6 +11,7 @@ const controllerNewebpay = require('@/controllers/controllerNewebpay')
 const controllerScreens = require('@/controllers/controllerScreens')
 const controllerOrder = require('@/controllers/controllerOrder')
 const controllerMember = require('@/controllers/controllerMember')
+const controllerMail = require('@/controllers/controllerMail')
 
 const { MERCHANTID, VERSION, HASHKEY, HASHIV } = process.env
 const orders = {}
@@ -31,10 +32,12 @@ const newebpay = async (req, res, next) => {
     return item
   })
   const updateSeatStatus = await controllerScreens.updateScreenSeatsStatu(orderRes.screenId._id, newSeatsStatu)
+  const mailRes = await controllerMail.sendTicketMail({ orderRes, memberRes })
   console.log('解密付款 : ' + result)
   console.log('訂單資訊 : ' + orderRes)
   console.log('會員訂單更新 : ' + memberRes)
   console.log('更新座位資訊 : ' + updateSeatStatus)
+  console.log('訂票成功信件 : ' + mailRes)
   return res.redirect(`${url}/#/newebpayreturn/${result.Result.MerchantOrderNo}`)
 }
 
@@ -42,7 +45,6 @@ const newebpay = async (req, res, next) => {
 // 藍新金流
 router.post('/newebpay', newebpay)
 
-// 寄信用
 router.post('/createOrder', serviceError.asyncError(async (req, res, next) => {
   const data = req.body
   console.log(data)

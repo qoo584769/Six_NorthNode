@@ -2354,6 +2354,14 @@
         "responses": {}
       }
     },
+    "/api/mail/personalMail": {
+      "post": {
+        "tags": [],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
     "/api/theater/": {
       "get": {
         "tags": [],

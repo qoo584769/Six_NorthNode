@@ -24,9 +24,11 @@ const newebpay = async (req, res, next) => {
   const orderRes = await controllerOrder.getOrder(result.Result.MerchantOrderNo)
   const memberRes = await controllerMember.updateUserOrder(orderRes.member, orderRes._id)
   const newSeatsStatu = orderRes.screenId.seatsStatus.map((item) => {
-    for (let i = 0; i <= orderRes.position.length; i++) {
+    for (let i = 0; i < orderRes.position.length; i++) {
       if (item.seat_id === orderRes.position[i]) {
         item.is_booked = !item.is_booked
+        console.log(item.seat_id)
+        console.log(orderRes.position[i])
       }
     }
     return item

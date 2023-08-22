@@ -138,12 +138,12 @@ const controllerScreens = {
     const result = await Screens.find(query)
       .populate({
         path: 'movieId',
-        select: 'name',
+        // select: 'name',
         match: { name: { $regex: new RegExp(name, 'i') } }
       })
       .populate({
         path: 'theaterId',
-        select: 'type',
+        // select: 'type',
         match: { type: { $ne: null } }
       })
       .exec()

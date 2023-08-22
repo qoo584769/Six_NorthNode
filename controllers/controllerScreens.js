@@ -20,8 +20,8 @@ const controllerScreens = {
         // select: 'type',
         // match: { type: { $ne: null } }
       })
+
     const playDates = []
-    const newPlayDates = []
 
     const currentDate = new Date()
 
@@ -29,15 +29,13 @@ const controllerScreens = {
       const startDate = screen.startDate
       if (startDate >= currentDate) {
         const formattedDate = startDate.toISOString().split('T')[0]
-        if (!playDates.includes(formattedDate)) {
-          playDates.push(formattedDate)
-          const newData = { screen, formattedDate }
-          newPlayDates.push(newData)
+        if (!playDates.includes(screen)) {
+          playDates.push({ screen, formattedDate })
         }
       }
     })
 
-    return newPlayDates
+    return playDates
   },
 
   async  insertScreens (movieId, theaterId, startDate) {

@@ -95,7 +95,6 @@ const controllerScreens = {
 
   async getScreens (movieId, type, startDate, name) {
     const query = {}
-
     if (type !== undefined) {
       const theaters = await Theaters.findOne({ type }).catch(() => {
         throw serviceResponse.error(httpCode.BAD_REQUEST, 'Invalid Date')

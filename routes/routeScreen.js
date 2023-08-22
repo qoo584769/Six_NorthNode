@@ -158,7 +158,7 @@ router.get(
           }
         }
     */
-    const { movieId, type, startDate, name } = req.query
+    const { movieId, type, startDate, name } = req.params
 
     const result = await controllerScreens.getScreens(movieId, type, startDate, name)
     serviceResponse.success(res, result)

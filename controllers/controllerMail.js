@@ -12,7 +12,7 @@ const controllerMail = {
   // eslint-disable-next-line space-before-function-paren
   async sendMail(email) {
     // const transporter = nodemailer.createTransport({
-    //   service: 'Gmail',
+    //   service: 'gmail',
     //   secureConnecton: true,
     //   port: 587,
     //   auth: {
@@ -20,6 +20,7 @@ const controllerMail = {
     //     pass: process.env.EMAIL_PASS_KEY
     //   }
     // })
+
     const oauth2Client = new OAuth2(
       process.env.GOOGLE_AUTH_CLIENTID,
       process.env.GOOGLE_AUTH_CLIENT_SECRET,
@@ -73,7 +74,6 @@ const controllerMail = {
         // }
       ]
     })
-    // console.log(result)
     // res.status(200).json(result)
     return result
   },

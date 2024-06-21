@@ -9,14 +9,38 @@ const httpCode = require('@/utilities/httpCode')
 const serviceResponse = require('@/services/serviceResponse')
 
 const controllerMail = {
-  async sendMail (email) {
+  // eslint-disable-next-line space-before-function-paren
+  async sendMail(email) {
+    // const transporter = nodemailer.createTransport({
+    //   service: 'Gmail',
+    //   secureConnecton: true,
+    //   port: 587,
+    //   auth: {
+    //     user: process.env.EMAIL_ADDRESS,
+    //     pass: process.env.EMAIL_PASS_KEY
+    //   }
+    // })
+    const oauth2Client = new OAuth2(
+      process.env.GOOGLE_AUTH_CLIENTID,
+      process.env.GOOGLE_AUTH_CLIENT_SECRET,
+      'https://developers.google.com/oauthplayground'
+    )
+
+    oauth2Client.setCredentials({
+      refresh_token: process.env.GOOGLE_AUTH_REFRESH_TOKEN
+    })
+
+    const accessToken = oauth2Client.getAccessToken()
+
     const transporter = nodemailer.createTransport({
-      service: 'Gmail',
-      secureConnecton: true,
-      port: 587,
+      service: 'gmail',
       auth: {
+        type: 'OAuth2',
         user: process.env.EMAIL_ADDRESS,
-        pass: process.env.EMAIL_PASS_KEY
+        clientId: process.env.GOOGLE_AUTH_CLIENTID,
+        clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
+        refreshToken: process.env.GOOGLE_AUTH_REFRESH_TOKEN,
+        accessToken
       }
     })
 
@@ -53,7 +77,8 @@ const controllerMail = {
     // res.status(200).json(result)
     return result
   },
-  async sendTicketMail ({ orderRes, memberRes }) {
+  // eslint-disable-next-line space-before-function-paren
+  async sendTicketMail({ orderRes, memberRes }) {
     // 是否為 Email
     if (!validator.isEmail(memberRes.email)) {
       throw serviceResponse.error(httpCode.BAD_REQUEST, '信箱格式錯誤')

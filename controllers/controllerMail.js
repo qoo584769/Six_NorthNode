@@ -31,7 +31,15 @@ const controllerMail = {
       refresh_token: process.env.GOOGLE_AUTH_REFRESH_TOKEN
     })
 
-    const accessToken = oauth2Client.getAccessToken()
+    // 產生授權 URL
+    const authUrl = oauth2Client.generateAuthUrl({
+      access_type: 'offline',
+      scope: 'https://mail.google.com/'
+    })
+    console.log('請使用以下 URL 進行授權：')
+    console.log(authUrl)
+    const { token } = await oauth2Client.getAccessToken()
+    // const accessToken = oauth2Client.getAccessToken()
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',
@@ -41,7 +49,7 @@ const controllerMail = {
         clientId: process.env.GOOGLE_AUTH_CLIENTID,
         clientSecret: process.env.GOOGLE_AUTH_CLIENT_SECRET,
         refreshToken: process.env.GOOGLE_AUTH_REFRESH_TOKEN,
-        accessToken
+        accessToken: token
       }
     })
 
